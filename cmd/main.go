@@ -9,21 +9,18 @@ import (
 
 func handleRequests() {
 
-	//r := http.NewServeMux()
+	log.Println("[handleRequests] Started")
+
 	// creates a new instance of a mux router
 	myRouter := mux.NewRouter().StrictSlash(true)
-	// replace http.HandleFunc with myRouter.HandleFunc
-
 
 	myRouter.HandleFunc("/customer", appHandlers.Customer)
 
-	//r.HandleFunc("/all", returnAllArticles)
-	// finally, instead of passing in nil, we want
-	// to pass in our newly created router as the second
-	// argument
-	log.Fatal(http.ListenAndServe(":10001", myRouter))
+	log.Fatal(http.ListenAndServe(":8088", myRouter))
 }
 
 func main() {
+	log.Println("[main] server started")
 	handleRequests()
+	log.Println("[main] server stopped")
 }

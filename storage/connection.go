@@ -8,6 +8,10 @@ import (
 )
 
 func dbConn() (db *sql.DB) {
+	return dbConnRDS()
+}
+
+func dbConnLocalHost() (db *sql.DB) {
 
 	log.Println(logtag + " [dbConn] Started")
 
