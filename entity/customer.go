@@ -12,5 +12,7 @@ type Customer struct {
 	CountryOfBirth string `json:"country-of-birth"`
 	CountryOfResidence string `json:"country-of-residence"`
 	CustomerSegment string `json:"customer-segment"`
+
+	Addresses []Address `json:"addresses"`
 }
 

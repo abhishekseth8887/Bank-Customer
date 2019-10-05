@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/gorilla/mux"
 	"log"
-	appHandlers "myapps/bank/handlers"
+	appHandlers "myapps/Bank-Customer/handlers"
 	"net/http"
 )
 
@@ -17,7 +17,6 @@ func handleRequests() {
 
 	myRouter.HandleFunc("/customer", appHandlers.Customer)
 
-	myRouter.HandleFunc("/", appHandlers.HomePage)
 	//r.HandleFunc("/all", returnAllArticles)
 	// finally, instead of passing in nil, we want
 	// to pass in our newly created router as the second

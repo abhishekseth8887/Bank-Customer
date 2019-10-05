@@ -3,42 +3,43 @@ package storage
 import (
 	"database/sql"
 	"log"
-	"myapps/bank/entity"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func dbConn() (db *sql.DB) {
+
+	log.Println(logtag + " [dbConn] Started")
+
 	dbDriver := "mysql"
 	dbUser := "root"
 	dbPass := ""
 	dbName := "customers"
 	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
 	if err != nil {
-		panic(err.Error())
+		log.Println(err.Error())
 	}
+
+	log.Println(logtag + " [dbConn] Finished")
+
 	return db
 }
 
-func Insert(customer entity.Customer) {
+func dbConnRDS() (db *sql.DB) {
 
-	db := dbConn()
+	log.Println(logtag + " [dbConnRDS] Started")
 
-	insForm, err := db.Prepare(
-		"INSERT INTO Customers(" +
-			"first_name, middle_name,last_name, dob, mobile_number, gender," +
-			"customer_number, country_of_birth, country_of_residence, customer_segment) " +
-			"VALUES(?,?,?,?,?,?,?,?,?,?)")
-
+	dbDriver := "mysql"
+	dbUser := "admin"
+	dbPass := "#Admin123456"
+	dbName := "(rds-1.chpbm7kawk5u.ap-southeast-1.rds.amazonaws.com)/customers"
+	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@tcp"+dbName)
 	if err != nil {
-		panic(err.Error())
+		log.Println(err.Error())
 	}
 
-	insForm.Exec(customer.FirstName, customer.MiddleName, customer.LastName,
-		customer.Dob, customer.MobileNumber, customer.Gender,
-		customer.CustomerNumber, customer.CountryOfBirth, customer.CountryOfResidence,
-		customer.CustomerSegment)
-
-	defer db.Close()
-	log.Println("INSERT: ")
+	log.Println(logtag + " [dbConnRDS] Finished")
+	return db
 }
+
+
